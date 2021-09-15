@@ -15,3 +15,7 @@ class SimpleSerializer(serializers.Serializer):
 
     def create(self, validated_data): #validated_data is the data you obtained after being able to validate data
         return TestModel.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        TestModel.objects.filter(id=instance.id).update(**validated_data)
+        return TestModel.objects.get(id=instance.id)
