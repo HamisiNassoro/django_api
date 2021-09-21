@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from test_app.views import Simple
+from test_app.views import SimpleGenerics, SimpleGenericsUpdate #,Simple
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('simple/', Simple.as_view()),
-    path('simple/<int:id>', Simple.as_view())
+    # path('simple/', Simple.as_view()),
+    # path('simple/<int:id>', Simple.as_view()),
+    path('simple-generics', SimpleGenerics.as_view()),
+    path('simple-generics/<int:id>', SimpleGenericsUpdate.as_view()) #with <int:id> an error of pk is returned therefore need for lookup_field, but <int:pk> works perfectly without lookup_field
 ]
