@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from test_app.views import SimpleViewset #SimpleGenerics, #SimpleGenericsUpdate, #,Simple
+from django.conf import settings
 
 from rest_framework.routers import DefaultRouter
 
@@ -30,3 +31,10 @@ urlpatterns = [
     # path('simple-generics/<int:id>', SimpleGenericsUpdate.as_view()), #with <int:id> an error of pk is returned therefore need for lookup_field, but <int:pk> works perfectly without lookup_field
     path("", include(router.urls)),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns = [
+        path("__debug__/", include(debug_toolbar.urls))
+    ] + urlpatterns
