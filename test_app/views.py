@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework import generics
 from test_app.models import TestModel
 from .serializers import SimpleSerializer
+from rest_framework import viewsets
 
 # Create your views here.
 #class based views
@@ -36,11 +37,15 @@ from .serializers import SimpleSerializer
 #         return JsonResponse({"data":serializer.data})
 
 
-class SimpleGenerics(generics.ListCreateAPIView):
+# class SimpleGenerics(generics.ListCreateAPIView):
+#       queryset = TestModel.objects.all()
+#       serializer_class = SimpleSerializer
+
+# class SimpleGenericsUpdate(generics.UpdateAPIView):
+#     queryset = TestModel.objects.all()
+#     serializer_class = SimpleSerializer
+#     lookup_field = "id" #this works for the path url <int:id>
+
+class SimpleViewset(viewsets.ModelViewSet):
       queryset = TestModel.objects.all()
       serializer_class = SimpleSerializer
-
-class SimpleGenericsUpdate(generics.UpdateAPIView):
-    queryset = TestModel.objects.all()
-    serializer_class = SimpleSerializer
-    lookup_field = "id" #this works for the path url <int:id>
