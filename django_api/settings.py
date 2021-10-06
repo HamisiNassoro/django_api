@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'test_app',
     'rest_framework',
-    'django_seed',
+    'django_seed'
     'debug_toolbar',
 ]
 
