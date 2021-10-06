@@ -1,11 +1,11 @@
 from django.db.models import manager
 from django.shortcuts import render
-from django.http import JsonResponse, response
-from rest_framework.views import APIView
-from rest_framework import generics
-from test_app.models import TestModel
-from .serializers import SimpleSerializer
-from rest_framework import viewsets
+# from django.http import JsonResponse, response
+# from rest_framework.views import APIView
+# from rest_framework import generics
+# from test_app.models import TestModel
+# from .serializers import SimpleSerializer
+# from rest_framework import viewsets
 
 # Create your views here.
 #class based views
@@ -46,6 +46,6 @@ from rest_framework import viewsets
 #     serializer_class = SimpleSerializer
 #     lookup_field = "id" #this works for the path url <int:id>
 
-class SimpleViewset(viewsets.ModelViewSet):
-      queryset = TestModel.objects.all()
-      serializer_class = SimpleSerializer
+# class SimpleViewset(viewsets.ModelViewSet):
+#       queryset = TestModel.objects.all()
+#       serializer_class = SimpleSerializer

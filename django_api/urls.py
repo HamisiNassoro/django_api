@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from test_app.views import SimpleViewset #SimpleGenerics, #SimpleGenericsUpdate, #,Simple
 from django.conf import settings
 
-from rest_framework.routers import DefaultRouter
+# from test_app.views import SimpleViewset #SimpleGenerics, #SimpleGenericsUpdate, #,Simple
 
-router = DefaultRouter()
-router.register("simple-viewset", SimpleViewset)
+# from rest_framework.routers import DefaultRouter
+
+# router = DefaultRouter()
+# router.register("simple-viewset", SimpleViewset)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,7 +30,7 @@ urlpatterns = [
     # path('simple/<int:id>', Simple.as_view()),
     # path('simple-generics', SimpleGenerics.as_view()),
     # path('simple-generics/<int:id>', SimpleGenericsUpdate.as_view()), #with <int:id> an error of pk is returned therefore need for lookup_field, but <int:pk> works perfectly without lookup_field
-    path("", include(router.urls)),
+    # path("", include(router.urls)),
 ]
 
 if settings.DEBUG:
