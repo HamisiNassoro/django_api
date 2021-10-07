@@ -1,9 +1,14 @@
-from test_app.models import Blog
+from test_app.models import Blog,Car
 from django_seed import Seed
+from random import randint
+
+car_names = ("Mercedes", "Toyota", "Audi", "Honda", "Nissan",)
 
 seeder = Seed.seeder()
 
-seeder.add_entity(Blog, 20) # we can specify the model you want from the models and the number of times you want to generate the model
+seeder.add_entity(Car, 100,{
+    'name':lambda x: car_names[randint(0, len(car_names) -1)]
+}) # we can specify the model you want from the models and the number of times you want to generate the model
 
 def execute():
     seeder.execute()
