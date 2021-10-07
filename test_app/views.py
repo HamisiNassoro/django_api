@@ -1,5 +1,31 @@
-from django.db.models import manager
-from django.shortcuts import render
+from test_app.models import Blog
+from django_seed import Seed
+
+seeder = Seed.seeder()
+
+seeder.add_entity(Blog, 20) # we can specify the model you want from the models and the number of times you want to generate the model
+
+def execute():
+    seeder.execute()
+    print("seeding completed")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# from django.db.models import manager
+# from django.shortcuts import render
 # from django.http import JsonResponse, response
 # from rest_framework.views import APIView
 # from rest_framework import generics
