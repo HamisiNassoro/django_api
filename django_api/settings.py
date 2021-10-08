@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_seed',
     'debug_toolbar',
-    'user'
+    'user',
+    'gateway'
 ]
 
 AUTH_USER_MODEL = "user.CustomUser"
