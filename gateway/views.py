@@ -8,7 +8,7 @@ import random
 import string
 from rest_framework.views import APIView
 from gateway.serializers import LoginSerializer
-from django.auth.contrib import authenticate
+from django.contrib.auth import authenticate
 from rest_framework.response import Response
 
 # Create your views here.
