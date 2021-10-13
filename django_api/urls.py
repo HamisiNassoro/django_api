@@ -26,7 +26,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('admin/', include("gateway.urls")),
+    path('gateway/', include("gateway.urls")),
     # path('simple/', Simple.as_view()),
     # path('simple/<int:id>', Simple.as_view()),
     # path('simple-generics', SimpleGenerics.as_view()),
