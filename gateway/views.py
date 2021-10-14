@@ -7,7 +7,7 @@ from django.conf import settings
 import random
 import string
 from rest_framework.views import APIView
-from gateway.serializers import LoginSerializer
+from gateway.serializers import LoginSerializer,RegisterSerializer
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
 
@@ -31,6 +31,7 @@ def get_refresh_token():
 
 class LoginView(APIView):
     serializer_class = LoginSerializer
+
     def post(self,request):
         serializer = self.serializer_class(data = request.data)
         serializer.is_valid(raise_exception = True)
@@ -50,3 +51,14 @@ class LoginView(APIView):
         )
 
         return Response({"access": access, "refresh": refresh})
+
+class RegisterView(APIView):
+    serializer_class = RegisterSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data = request.data)
+        serializer.is_valid(raise_exception = True)
+
+        CustomUser.objects._create_user(**serializer.validated_data)
+
+        return Response({"success": "User created."})
