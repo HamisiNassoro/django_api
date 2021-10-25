@@ -13,7 +13,7 @@ from rest_framework.response import Response
 
 # Create your views here.
 def get_random(length):
-    ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
 
 def get_access_token(payload):
     return jwt.encode(
