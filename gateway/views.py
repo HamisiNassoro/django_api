@@ -95,9 +95,11 @@ class RefreshView(APIView):
 
 
 
-class GetSecuredInfo(APIView):
-    permission_classes = [IsAuthenticated]
+class TestException(APIView):
 
     def get(self,request):
-        print(request.user)
+        try:
+            a = 2 / 0
+        except Exception as e:
+            raise Exception("You cannot divide by zero") #this is another method of raising the exception yourself
         return Response({"data": "This is a secured info"})
