@@ -1,3 +1,4 @@
+from django.contrib import auth
 from django.shortcuts import render
 import jwt
 from gateway.models import Jwt
@@ -8,8 +9,10 @@ import random
 import string
 from rest_framework.views import APIView
 from gateway.serializers import LoginSerializer,RegisterSerializer, RefreshSerializer
+from gateway.authentication import Authentication
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 def get_random(length):
@@ -66,20 +69,6 @@ class RegisterView(APIView):
 
         return Response({"success": "User created."})
 
-def verify_token(token):
-    # decode the token
-    try:
-        decoded_data = jwt.decode(token, settings.SECRET_KEY, algorithm="HS256")
-    except Exception:
-        return None
-
-    # check if token has expired
-    exp = decoded_data["exp"]
-
-    if datetime.now().timestamp() > exp:
-        return None
-    return decoded_data
-
 class RefreshView(APIView):
     serializer_class = RefreshSerializer
 
@@ -92,15 +81,23 @@ class RefreshView(APIView):
         except Jwt.DoesNotExist:
             return Response({"error": "refresh token not found"}, status = "400")
 
-        if not verify_token(serializer.validated_data["refresh"]):
+        if not Authentication.verify_token(serializer.validated_data["refresh"]):
             return Response({"error": "Token is invalid or has expired"})
 
         access = get_access_token({'user_id': active_jwt.user.id})
         refresh = get_refresh_token()
 
         active_jwt.access = access.decode()
-        active_jwt.refresh = refresh.decode()
+        active_jwt.refresh = refresh.refresh()
         active_jwt.save()
 
         return Response({"access": access, "refresh": refresh})
 
+
+
+class GetSecuredInfo(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self,request):
+        print(request.user)
+        return Response({"data": "This is a secured info"})
