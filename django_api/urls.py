@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+from django.conf.urls.static import static
 
 # from test_app.views import SimpleViewset #SimpleGenerics, #SimpleGenericsUpdate, #,Simple
 
@@ -27,12 +28,13 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('gateway/', include("gateway.urls")),
+    path('user-main/', include("user.urls"))
     # path('simple/', Simple.as_view()),
     # path('simple/<int:id>', Simple.as_view()),
     # path('simple-generics', SimpleGenerics.as_view()),
     # path('simple-generics/<int:id>', SimpleGenericsUpdate.as_view()), #with <int:id> an error of pk is returned therefore need for lookup_field, but <int:pk> works perfectly without lookup_field
     # path("", include(router.urls)),
-]
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar
