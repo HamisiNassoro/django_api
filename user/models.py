@@ -48,6 +48,9 @@ class AddressGlobal(models.Model):
     state = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.city
+
 class UserProfile(models.Model):
     user = models.OneToOneField(
         CustomUser, related_name='user_profile', on_delete=models.CASCADE)
