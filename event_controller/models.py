@@ -6,7 +6,7 @@ from user.models import AddressGlobal, CustomUser
 
 class EventMain(models.Model):
     author = models.ForeignKey(
-        CustomUser, related_name='user-events', on_delete=models.CASCADE)
+        CustomUser, related_name='user_events', on_delete=models.CASCADE)
     address_info = models.ForeignKey(
         AddressGlobal, related_name='event_address', on_delete=models.CASCADE)
     title = models.CharField(max_length=50, unique=True)
