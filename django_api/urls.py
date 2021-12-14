@@ -28,7 +28,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('gateway/', include("gateway.urls")),
-    path('user-main/', include("user.urls"))
+    path('user-main/', include("user.urls")),
+    path('event-main/', include("event_controller.urls"))
     # path('simple/', Simple.as_view()),
     # path('simple/<int:id>', Simple.as_view()),
     # path('simple-generics', SimpleGenerics.as_view()),
