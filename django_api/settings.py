@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'user',
     'gateway',
-    'cloudinary_storage'
+    'cloudinary_storage',
+    'event_controller',
 ]
 
 AUTH_USER_MODEL = "user.CustomUser"
