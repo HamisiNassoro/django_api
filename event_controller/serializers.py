@@ -6,8 +6,8 @@ from user.serializers import AddressGlobalSerializer, CustomUserSerializer
 
 
 class EventFeatureSerializer(serializers.ModelSerializer):
-    event_main = serializers.CharField(read_only = True)
-    event_main_id = serializers.IntegerField(write_only =True)
+    eventmain = serializers.CharField(read_only = True)
+    eventmain_id = serializers.IntegerField(write_only =True)
 
     class Meta:
         model = EventFeature
@@ -18,7 +18,7 @@ class EventMainSerializer(serializers.ModelSerializer):
     author_id = serializers.IntegerField(write_only=True)
     address_info = AddressGlobalSerializer(read_only=True)
     address_info_id = serializers.IntegerField(write_only=True)
-    event_features = EventFeatureSerializer(read_only=True)
+    event_features = EventFeatureSerializer(read_only=True, many=True)
 
     class Meta:
         model = EventMain
