@@ -5,6 +5,7 @@ from event_controller.models import EventMain
 from event_controller.serializers import EventMainSerializer, EventFeatureSerializer, EventAttendantSerializer
 from user.models import AddressGlobal
 from user.serializers import AddressGlobalSerializer
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -19,4 +20,35 @@ class EventMainView(ModelViewSet):
         a_serializer.save()
 
         data = {**request.data, "address_info_id": a_serializer.data["id"]}
-        return super().create(request, *args, **kwargs)
+
+        e_serializer = self.serializer_class(data=data)
+        if not e_serializer.is_valid():
+            AddressGlobal.objects.filter(id=a_serializer.data["id"]).delete()
+            raise Exception(e_serializer.errors)
+
+        e_serializer.save()
+
+        features = request.data.get("features", None)
+        if not features:
+            AddressGlobal.objects.filter(id=a_serializer.data["id"]).delete()
+            raise Exception("features field is requird")
+
+        if not isinstance(features, list):
+            features = [features]
+
+        data = []
+        for f in features:
+            if not isinstance(f, dict):
+                AddressGlobal.objects.filter(id=a_serializer.data["id"]).delete()
+                raise Exception("Feature instance must be an object")
+            data.append({
+                **f, "eventmain_id":e_serializer.data["id"]
+            })
+        f_serializer = EventFeatureSerializer(data=data, many=True)
+        if not f_serializer.is_valid():
+            AddressGlobal.objects.filter(id=a_serializer.data["id"]).delete()
+            raise Exception(f_serializer.errors)
+
+        f_serializer.save()
+
+        return Response(self.serializer_class(self.get_queryset().get(id=e_serializer.data["id"])).data, status=201)
