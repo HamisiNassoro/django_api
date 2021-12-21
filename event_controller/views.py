@@ -1,7 +1,7 @@
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-from event_controller.models import EventMain
+from event_controller.models import EventAttendant, EventMain
 from event_controller.serializers import EventMainSerializer, EventFeatureSerializer, EventAttendantSerializer
 from user.models import AddressGlobal
 from user.serializers import AddressGlobalSerializer
@@ -84,3 +84,34 @@ class EventMainView(ModelViewSet):
             f_serializer.save()
 
         return Response(self.serializer_class(self.get_object()).data)
+
+
+class EventAttenderView(ModelViewSet):
+    serializer_class = EventAttendantSerializer
+    queryset = EventAttendant.objects.select_related("user","eventmain")
+
+    def create(self, request, *args, **kwargs):
+        at_serializer = self.serializer_class(data=request.data)
+        at_serializer.is_valid(raise_exception=True)
+
+        evt = EventMainView.queryset.filter(
+            id=at_serializer.validated_data["eventmain_id"])
+        if not evt:
+            raise Exception("Event Does Not Exist")
+
+        evt = evt[0]
+
+        #check if maximum seat has not reached
+        at_count = self.queryset.filter(eventmain_id=evt.id).count()
+
+        if not at_count < evt.max_seat: #if at_count >= evt.max_seat: -----could also use this
+            raise Exception("Maximum attenders taken")
+
+        #check time
+        at_time = at_serializer.validated_data["time"]
+        if at_time < evt.time:
+            raise Exception("You are too early")
+
+        at_serializer.save()
+        return Response(at_serializer.data, status=201)
+
