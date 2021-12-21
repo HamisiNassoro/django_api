@@ -101,6 +101,13 @@ class EventAttenderView(ModelViewSet):
 
         evt = evt[0]
 
+        #check if user already exists
+        is_user_reg = self.queryset.filter(
+            eventmain_id=evt.id, user_id=at_serializer.validated_data["user_id"])
+
+        if is_user_reg:
+            raise Exception("You already registered for event")
+
         #check if maximum seat has not reached
         at_count = self.queryset.filter(eventmain_id=evt.id).count()
 
