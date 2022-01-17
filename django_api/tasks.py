@@ -1,5 +1,5 @@
-from celery import task
+from celery import app
 
-@task()
+@app.shared_task()
 def test():
     print("Hello Async")
