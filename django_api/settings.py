@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_seed',
     'debug_toolbar',
+    'django_api',     #this is added bcz of celery to avoid error
     'user',
     'gateway',
     'cloudinary_storage',
