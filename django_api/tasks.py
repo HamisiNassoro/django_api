@@ -2,7 +2,15 @@ from celery import app
 # from celery import task
 import time
 import requests
+from django.core.mail import send_mail
 from event_controller.models import Dog
+
+@app.shared_task()
+def send_mail_content(recipient_email, mail_header, message_html, msg):
+    recipient = (recipient_email,)
+    sender = "Hamso"
+
+    send_mail(mail_header, msg, sender, recipient, html_message=message_html)
 
 @app.shared_task()
 def test(value):
