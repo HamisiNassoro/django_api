@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import time
 from decouple import Config, config
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +33,12 @@ ALLOWED_HOSTS = []
 # Setting up Celery
 CELERY_BROKER_URL = config("CELERY_BROKER_URL")
 # CELERY_RESULT_BACKEND = config("CELERY_RESULT_BACKEND")
+CELERY_BEAT_SCHEDULE = {
+    "populate_dog": {
+        "task":"django_api.tasks.populate_dog",
+        "schedule": timedelta(seconds=10)
+    }
+}
 
 
 # Application definition
