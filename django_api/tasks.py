@@ -5,9 +5,9 @@ import requests
 from event_controller.models import Dog
 
 @app.shared_task()
-def test():
+def test(value):
     time.sleep(5)          #sleeps for 5 secs
-    print("Hello Async")
+    print(value)
 
 @app.shared_task()
 def populate_dog():
