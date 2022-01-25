@@ -12,12 +12,15 @@ cloudinary==1.28.0
 Django==3.2.7
 django-cloudinary-storage==0.3.0
 django-debug-toolbar==3.2.2
+django-phonenumber-field==6.0.0
+django-phonenumbers==1.0.1
 django-seed==0.2.2
 djangorestframework==3.12.4
 Faker==8.16.0
 idna==3.3
 importlib-metadata==4.10.1
 kombu==5.2.3
+phonenumbers==8.12.41
 Pillow==8.4.0
 prompt-toolkit==3.0.24
 psycopg2-binary==2.9.1
