@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='customuser',
             name='mobile',
-            field=models.IntegerField(default=''),
+            field=models.IntegerField(default=254),
             preserve_default=False,
         ),
     ]
