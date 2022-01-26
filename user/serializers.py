@@ -21,7 +21,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ("email", "name", "mobile", "isVerified", "user_profile", "created_at", "updated_at")
+        fields = ("email", "name", "user_profile", "created_at", "updated_at")
 
 
 
