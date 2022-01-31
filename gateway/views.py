@@ -88,7 +88,7 @@ class RefreshView(APIView):
         refresh = get_refresh_token()
 
         active_jwt.access = access.decode()
-        active_jwt.refresh = refresh.refresh()
+        active_jwt.refresh = refresh.decode()
         active_jwt.save()
 
         return Response({"access": access, "refresh": refresh})
